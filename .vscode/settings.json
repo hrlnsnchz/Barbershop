@@ -1,3 +1,11 @@
 {
-    "python.pythonPath": "/home/harlin/.local/share/virtualenvs/Barbershop-uhgjJ1QO/bin/python"
+    "python.pythonPath": "/home/harlin/.local/share/virtualenvs/Barbershop-uhgjJ1QO/bin/python",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "barbershop",
+            "database": "db.sqlite3"
+        }
+    ]
 }

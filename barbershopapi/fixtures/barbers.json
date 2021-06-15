@@ -1,0 +1,9 @@
+[
+    {
+        "model": "barbershopapi.barber",
+        "pk": 1,
+        "fields": {
+            "user": 1
+        }
+    }
+]

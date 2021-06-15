@@ -1,0 +1,34 @@
+[
+    {
+        "model": "barbershopapi.service",
+        "pk": 1,
+        "fields": {
+            "label": "men's haircut",
+            "price": 25.00
+        }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 2,
+        "fields": {
+            "label": "kids' haircut",
+            "price": 20.00
+        }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 3,
+        "fields": {
+            "label": "cut, style, and shampoo",
+            "price": 35.00
+        }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 4,
+        "fields": {
+            "label": "shave",
+            "price": 25.00
+        }
+    }
+]
