@@ -1,0 +1,10 @@
+[
+    {
+        "model": "barbershopapi.customer",
+        "pk": 1,
+        "fields": {
+            "name": "John Smith",
+            "phone": "5555555555"
+        }
+    }
+]

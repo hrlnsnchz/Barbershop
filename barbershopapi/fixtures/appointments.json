@@ -1,0 +1,14 @@
+[
+    {
+        "model": "barbershopapi.appointment",
+        "pk": 1,
+        "fields": {
+            "customer": 1,
+            "barber": 1,
+            "datetime": "2020-08-28T14:51:39.989Z",
+            "services": [
+                1, 4
+            ]
+        }
+    }
+]
