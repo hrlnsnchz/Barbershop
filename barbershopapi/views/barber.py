@@ -5,31 +5,27 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from barbershopapi.models import Appointment, Barber, Service
+from barbershopapi.models import Barber
 
 
-class Profile(ViewSet):
+class BarberView(ViewSet):
     """Barber can see profile information"""
 
     def list(self, request):
-        """Handle GET requests to profile resource
+        """Handle GET requests to games resource
         Returns:
-            Response -- JSON representation of user info and Appointments
+            Response -- JSON serialized list of games
         """
-        barber = Barber.objects.get(user=request.auth.user)
-        appointments = Appointment.objects.filter(attendees=barber)
+        # Get all game records from the database
+        barbers = Barber.objects.all()
 
-        appointments = AppointmentSerializer(
-            appointments, many=True, context={'request': request})
-        barber = BarberSerializer(
-            barber, many=False, context={'request': request})
-
-        # Manually construct the JSON structure you want in the response
-        profile = {}
-        profile["barber"] = barber.data
-        profile["appointments"] = appointments.data
-
-        return Response(profile)
+        # Support filtering games by type
+        #    http://localhost:8000/games?type=1
+        #
+        # That URL will retrieve all tabletop games
+        serializer = BarberSerializer(
+            barbers, many=True, context={'request': request})
+        return Response(serializer.data)
 
 class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for barber's related Django user"""
@@ -44,20 +40,4 @@ class BarberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Barber
-        fields = ('user')
-
-
-class ServiceSerializer(serializers.ModelSerializer):
-    """JSON serializer for services"""
-    class Meta:
-        model = Service
-        fields = ('label', 'price')
-
-
-class AppointmentSerializer(serializers.ModelSerializer):
-    """JSON serializer for appointments"""
-    service = ServiceSerializer(many=False)
-
-    class Meta:
-        model = Appointment
-        fields = ('id', 'customer', 'barber', 'datetime', 'services')
+        fields = ('user',)
