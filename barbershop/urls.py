@@ -19,12 +19,12 @@ from django.urls import path
 from django.conf.urls import include
 from barbershopapi.views import register_user, login_user
 from rest_framework import routers
-from barbershopapi.views import CustomerView, BarberView
+from barbershopapi.views import CustomerView, BarberView, ServiceView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'customers', CustomerView, 'customer')
 router.register(r'barbers', BarberView, 'barber') 
-
+router.register(r'services', ServiceView, 'service') 
 
 urlpatterns = [
     path('', include(router.urls)),
