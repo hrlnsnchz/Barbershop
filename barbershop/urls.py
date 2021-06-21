@@ -18,13 +18,15 @@ from django.urls import path
 from django.conf.urls import include
 from barbershopapi.views import register_user, login_user
 from rest_framework import routers
-from barbershopapi.views import CustomerView, BarberView, ServiceView, AppointmentView
+from barbershopapi.views import CustomerView, BarberView, ServiceView, AppointmentView, WaitlistView, Work_ScheduleView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'customers', CustomerView, 'customer')
 router.register(r'barbers', BarberView, 'barber') 
 router.register(r'services', ServiceView, 'service') 
 router.register(r'appointments', AppointmentView, 'appointment')
+router.register(r'waitlists', WaitlistView, 'waitlist')
+router.register(r'work_schedules', Work_ScheduleView, 'work_schedule')
 
 urlpatterns = [
     path('', include(router.urls)),
