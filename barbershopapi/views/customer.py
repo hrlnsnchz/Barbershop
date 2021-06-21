@@ -10,31 +10,19 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for customers"""
     class Meta:
         model = Customer
-        url = serializers.HyperlinkedIdentityField(
-            view_name='customer', lookup_field='id'
-        )
-        fields = ('id', 'url', 'user', 'phone_number', 'address')
+        fields = ('id', 'name', 'phone')
         depth = 1
 
 
 class CustomerView(ViewSet):
 
-    def update(self, request, pk=None):
+    def list(self, request):
+        """Handle GET requests to games resource
+        Returns:
+            Response -- JSON serialized list of games
         """
-        @api {PUT} /customers/:id PUT changes to customer profile
-        @apiName UpdateCustomer
-        @apiGroup Customer
-        @apiHeader {String} Authorization Auth token
-        @apiHeaderExample {String} Authorization
-            Token 9ba45f09651c5b0c404f37a2d2572c026c146611
-        @apiParam {id} id Customer Id to update
-        @apiSuccessExample {json} Success
-            HTTP/1.1 204 No Content
-        """
-        customer = Customer.objects.get(user=request.auth.user)
-        customer.user.last_name = request.data["last_name"]
-        customer.phone_number = request.data["phone_number"]
-        customer.user.save()
-        customer.save()
+        customers = Customer.objects.all()
 
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        serializer = CustomerSerializer(
+            customers, many=True, context={'request': request})
+        return Response(serializer.data)
