@@ -3,8 +3,8 @@
         "model": "barbershopapi.customer",
         "pk": 1,
         "fields": {
-            "name": "John Smith",
-            "phone": "5555555555"
+            "user": 2,
+            "phone": "5555555556"
         }
     }
 ]
