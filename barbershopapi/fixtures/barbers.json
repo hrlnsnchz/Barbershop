@@ -5,5 +5,26 @@
         "fields": {
             "user": 1
         }
+    },
+    {
+        "model": "barbershopapi.barber",
+        "pk": 2,
+        "fields": {
+            "user": 4
+        }
+    },
+    {
+        "model": "barbershopapi.barber",
+        "pk": 3,
+        "fields": {
+            "user": 5
+        }
+    },
+    {
+        "model": "barbershopapi.barber",
+        "pk": 4,
+        "fields": {
+            "user": 6
+        }
     }
 ]

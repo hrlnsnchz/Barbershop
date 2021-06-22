@@ -7,17 +7,38 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from barbershopapi.models import Waitlist, Barber
-
+from barbershopapi.models import Waitlist, Barber, Customer, Service
 
 class WaitlistView(ViewSet):
-    """Level up events"""
+    """Barbershop waitlists"""
+
+    def create(self, request):
+        """Handle POST operations for waitlists
+        Returns:
+            Response -- JSON serialized waitlist instance
+        """
+        customer = Customer.objects.get(user=request.auth.user)
+
+        waitlist = Waitlist()
+        waitlist.barber = Barber.objects.get(pk=request.data['barber'])
+        waitlist.time = request.data["time"]
+        waitlist.customer = customer
+        waitlist.is_served = request.data["is_served"]
+        # loop through services ids?
+
+
+        try:
+            waitlist.save()
+            serializer = WaitlistSerializer(waitlist, context={'request': request})
+            return Response(serializer.data)
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
     
     def list(self, request):
-        """Handle GET requests to events resource
+        """Handle GET requests to waitlists resource
 
         Returns:
-            Response -- JSON serialized list of events
+            Response -- JSON serialized list of waitlists
         """
         # Get the current authenticated user
         waitlists = Waitlist.objects.all()
