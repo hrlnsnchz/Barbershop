@@ -4,7 +4,7 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "barbershop",
+            "name": "barbershopdb",
             "database": "db.sqlite3"
         }
     ]

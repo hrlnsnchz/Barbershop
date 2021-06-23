@@ -1,4 +1,6 @@
 """View module for handling requests about events"""
+from barbershopapi.models.waitlist_service import Waitlist_Service
+import datetime
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
@@ -18,14 +20,13 @@ class WaitlistView(ViewSet):
             Response -- JSON serialized waitlist instance
         """
         customer = Customer.objects.get(user=request.auth.user)
-
         waitlist = Waitlist()
+        waitlist.services = request.data["waitlist_services"]
         waitlist.barber = Barber.objects.get(pk=request.data['barber'])
-        waitlist.time = request.data["time"]
+        waitlist.time = datetime.datetime.now()
         waitlist.customer = customer
         waitlist.is_served = request.data["is_served"]
-        # loop through services ids?
-
+        
 
         try:
             waitlist.save()
@@ -52,7 +53,7 @@ class WaitlistUserSerializer(serializers.ModelSerializer):
     """JSON serializer for event organizer's related Django user"""
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['id', 'first_name', 'last_name', 'email']
 
 class WaitlistBarberSerializer(serializers.ModelSerializer):
     """JSON serializer for event organizer"""
@@ -62,12 +63,19 @@ class WaitlistBarberSerializer(serializers.ModelSerializer):
         model = Barber
         fields = ['user']
 
+# class WaitlistServiceSerializer(serializers.ModelSerializer):
+#     """JSON serializer for services organizer"""
+#     class Meta:
+#         model = Waitlist_Service
+#         fields = ['service']
+
 class WaitlistSerializer(serializers.ModelSerializer):
     """JSON serializer for Waitlists"""
     barber = WaitlistBarberSerializer(many=False)
+    # waitlist_services = WaitlistServiceSerializer(many=True)
 
     class Meta:
         model = Waitlist
-        fields = ('id', 'customer', 'barber',
-                  'time', 'is_served')
-        # depth = 1
+        fields = ('customer', 'barber',
+                  'time', 'waitlist_services', 'is_served')
+        depth = 1

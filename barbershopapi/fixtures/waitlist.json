@@ -6,7 +6,10 @@
             "customer": 1,
             "barber": 1,
             "time": "2020-08-28T14:51:39.989Z",
-            "is_served": false
+            "is_served": false,
+            "waitlist_services": [
+                1, 4
+            ]
         }
     }
 ]
