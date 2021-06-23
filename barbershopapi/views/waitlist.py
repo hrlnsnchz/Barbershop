@@ -1,5 +1,4 @@
 """View module for handling requests about events"""
-from barbershopapi.models.waitlist_service import Waitlist_Service
 import datetime
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -19,9 +18,9 @@ class WaitlistView(ViewSet):
         Returns:
             Response -- JSON serialized waitlist instance
         """
-        customer = Customer.objects.get(user=request.auth.user)
         waitlist = Waitlist()
-        waitlist.services = request.data["waitlist_services"]
+        customer = Customer.objects.get(user=request.auth.user)
+        # waitlist_services=Waitlist_Service()
         waitlist.barber = Barber.objects.get(pk=request.data['barber'])
         waitlist.time = datetime.datetime.now()
         waitlist.customer = customer
@@ -30,6 +29,7 @@ class WaitlistView(ViewSet):
 
         try:
             waitlist.save()
+            waitlist.waitlist_services.set(request.data["waitlist_services"])
             serializer = WaitlistSerializer(waitlist, context={'request': request})
             return Response(serializer.data)
         except ValidationError as ex:
