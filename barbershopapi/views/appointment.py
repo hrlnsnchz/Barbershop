@@ -95,7 +95,7 @@ class AppointmentView(ViewSet):
             Response -- JSON serialized list of events
         """
         # Get the current authenticated user
-        barber = Barber.objects.get(user=request.auth.user)
+        # barber = Barber.objects.get(user=request.auth.user)
         appointments = Appointment.objects.all()
 
         # Set the `joined` property on every event
@@ -157,10 +157,10 @@ class AppointmentBarberSerializer(serializers.ModelSerializer):
 
 class AppointmentSerializer(serializers.ModelSerializer):
     """JSON serializer for appointments"""
-    barber = AppointmentBarberSerializer(many=False)
+    # barber = AppointmentBarberSerializer(many=False)
 
     class Meta:
         model = Appointment
-        fields = ('id', 'customer', 'barber',
-                  'datetime', 'services')
+        fields = ('id',
+                  'start', 'end')
         # depth = 1

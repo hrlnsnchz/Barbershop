@@ -48,6 +48,27 @@ class WaitlistView(ViewSet):
             waitlists, many=True, context={'request': request})
         return Response(serializer.data)
 
+    def retrieve(self, request):
+        """Handle GET requests to games resource
+        Returns:
+            Response -- JSON serialized list of games
+        """
+        # Get all game records from the database
+        waitlists = Waitlist.objects.all()
+
+        # Support filtering games by customer
+        #    http://localhost:8000/waitlists?customer=1
+        #
+        # That URL will retrieve all tabletop games
+        customer = self.request.query_params.get('customer', None)
+        if customer is not None:
+            waitlists = waitlists.filter(customer__id=customer)
+
+
+        serializer = WaitlistSerializer(
+            waitlists, many=True, context={'request': request})
+        return Response(serializer.data[-1])
+
 
 class WaitlistUserSerializer(serializers.ModelSerializer):
     """JSON serializer for event organizer's related Django user"""
@@ -76,6 +97,6 @@ class WaitlistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Waitlist
-        fields = ('customer', 'barber',
+        fields = ('id', 'customer', 'barber',
                   'time', 'waitlist_services', 'is_served')
         depth = 1
