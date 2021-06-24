@@ -5,9 +5,75 @@
         "fields": {
             "customer": 1,
             "barber": 1,
-            "datetime": "2020-08-28T14:51:39.989Z",
+            "start": "2021-06-25T14:51:39.989Z",
+            "end": "2021-06-25T16:51:39.989Z",
             "services": [
                 1, 4
+            ]
+        }
+    },
+    {
+        "model": "barbershopapi.appointment",
+        "pk": 2,
+        "fields": {
+            "customer": 1,
+            "barber": 2,
+            "start": "2021-06-29T14:51:39.989Z",
+            "end": "2021-06-29T16:51:39.989Z",
+            "services": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "barbershopapi.appointment",
+        "pk": 3,
+        "fields": {
+            "customer": 2,
+            "barber": 3,
+            "start": "2021-07-02T14:51:39.989Z",
+            "end": "2021-07-02T16:51:39.989Z",
+            "services": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "barbershopapi.appointment",
+        "pk": 4,
+        "fields": {
+            "customer": 1,
+            "barber": 1,
+            "start": "2021-07-08T14:51:39.989Z",
+            "end": "2021-07-08T16:51:39.989Z",
+            "services": [
+                1, 4
+            ]
+        }
+    },
+    {
+        "model": "barbershopapi.appointment",
+        "pk": 5,
+        "fields": {
+            "customer": 1,
+            "barber": 1,
+            "start": "2021-07-10T14:51:39.989Z",
+            "end": "2021-07-10T16:51:39.989Z",
+            "services": [
+                2, 4
+            ]
+        }
+    },
+    {
+        "model": "barbershopapi.appointment",
+        "pk": 6,
+        "fields": {
+            "customer": 1,
+            "barber": 2,
+            "start": "2021-07-10T16:51:39.989Z",
+            "end": "2021-07-10T18:51:39.989Z",
+            "services": [
+                3
             ]
         }
     }

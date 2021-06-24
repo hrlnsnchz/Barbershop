@@ -4,25 +4,32 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 from barbershopapi.models import Customer
-
-
-class CustomerSerializer(serializers.HyperlinkedModelSerializer):
-    """JSON serializer for customers"""
-    class Meta:
-        model = Customer
-        fields = ('id', 'name', 'phone')
-        depth = 1
+from django.contrib.auth.models import User
 
 
 class CustomerView(ViewSet):
 
     def list(self, request):
-        """Handle GET requests to games resource
+        """Handle GET requests to customers resource
         Returns:
-            Response -- JSON serialized list of games
+            Response -- JSON serialized customer item
         """
-        customers = Customer.objects.all()
+        customer = Customer.objects.get(user=request.auth.user)
 
         serializer = CustomerSerializer(
-            customers, many=True, context={'request': request})
+            customer, many=False, context={'request': request})
         return Response(serializer.data)
+
+class UserSerializer(serializers.ModelSerializer):
+    """JSON serializer for gamer's related Django user"""
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username')
+
+class CustomerSerializer(serializers.HyperlinkedModelSerializer):
+    """JSON serializer for customers"""
+    user = UserSerializer(many=False)
+    class Meta:
+        model = Customer
+        fields = ('user',)
+        depth = 1
