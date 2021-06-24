@@ -7,5 +7,5 @@ class Appointment(models.Model):
     barber = models.ForeignKey("Barber", on_delete=models.CASCADE)
     start = models.DateTimeField(default=now)
     end = models.DateTimeField(default=now)
-    services = models.ManyToManyField("Service")
+    appointment_services = models.ManyToManyField("Service")
 
