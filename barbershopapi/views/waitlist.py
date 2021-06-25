@@ -20,7 +20,6 @@ class WaitlistView(ViewSet):
         """
         waitlist = Waitlist()
         customer = Customer.objects.get(user=request.auth.user)
-        # waitlist_services=Waitlist_Service()
         waitlist.barber = Barber.objects.get(pk=request.data['barber'])
         waitlist.time = datetime.datetime.now()
         waitlist.customer = customer
