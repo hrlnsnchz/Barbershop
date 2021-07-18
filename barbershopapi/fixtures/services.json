@@ -30,5 +30,37 @@
             "label": "shave",
             "price": 25.00
         }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 5,
+        "fields": {
+            "label": "eyebrows",
+            "price": 15.00
+        }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 6,
+        "fields": {
+            "label": "shape up",
+            "price": 15.00
+        }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 7,
+        "fields": {
+            "label": "fade",
+            "price": 10.00
+        }
+    },
+    {
+        "model": "barbershopapi.service",
+        "pk": 8,
+        "fields": {
+            "label": "head polishing",
+            "price": 20.00
+        }
     }
 ]
